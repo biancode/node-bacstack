@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>services/i-am.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="bacstack.html">bacstack</a><ul class='methods'><li data-type='method'><a href="bacstack.html#.close">close</a></li><li data-type='method'><a href="bacstack.html#.confirmedCOVNotification">confirmedCOVNotification</a></li><li data-type='method'><a href="bacstack.html#.deviceCommunicationControl">deviceCommunicationControl</a></li><li data-type='method'><a href="bacstack.html#.iAmResponse">iAmResponse</a></li><li data-type='method'><a href="bacstack.html#.readProperty">readProperty</a></li><li data-type='method'><a href="bacstack.html#.readPropertyMultiple">readPropertyMultiple</a></li><li data-type='method'><a href="bacstack.html#.readPropertyResponse">readPropertyResponse</a></li><li data-type='method'><a href="bacstack.html#.reinitializeDevice">reinitializeDevice</a></li><li data-type='method'><a href="bacstack.html#.resultResponse">resultResponse</a></li><li data-type='method'><a href="bacstack.html#.timeSync">timeSync</a></li><li data-type='method'><a href="bacstack.html#.timeSyncUTC">timeSyncUTC</a></li><li data-type='method'><a href="bacstack.html#.unconfirmedCOVNotification">unconfirmedCOVNotification</a></li><li data-type='method'><a href="bacstack.html#.unconfirmedCOVNotification">unconfirmedCOVNotification</a></li><li data-type='method'><a href="bacstack.html#.whoIs">whoIs</a></li><li data-type='method'><a href="bacstack.html#.writeProperty">writeProperty</a></li><li data-type='method'><a href="bacstack.html#.writePropertyMultiple">writePropertyMultiple</a></li></ul></li></ul><h3>Events</h3><ul><li><a href="bacstack.html#.event:error">error</a></li><li><a href="bacstack.html#.event:iAm">iAm</a></li><li><a href="bacstack.html#.event:timeSync">timeSync</a></li><li><a href="bacstack.html#.event:whoIs">whoIs</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ApplicationTags">ApplicationTags</a></li><li><a href="global.html#EnableDisable">EnableDisable</a></li><li><a href="global.html#getEnumName">getEnumName</a></li><li><a href="global.html#MaxApduLengthAccepted">MaxApduLengthAccepted</a></li><li><a href="global.html#MaxSegmentsAccepted">MaxSegmentsAccepted</a></li><li><a href="global.html#ReinitializedState">ReinitializedState</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">services/i-am.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * The iAm event represents the response to a whoIs request to detect all
+ * devices in a BACNET network.
+ *
+ * @event bacstack.iAm
+ * @param {number} deviceId - The BACNET device-id of the detected device.
+ * @param {number} maxApdu - The max APDU size the detected device supports.
+ * @param {number} segmentation - The type of segmentation the detected device supports.
+ * @param {number} vendorId - The BACNET vendor-id of the detected device.
+ *
+ * @example
+ * const bacnet = require('bacstack');
+ * const client = new bacnet();
+ *
+ * client.on('iAm', (msg) => {
+ *   console.log(
+ *     'address: ', msg.header.address,
+ *     ' - deviceId: ', msg.payload.deviceId,
+ *     ' - maxApdu: ', msg.payload.maxApdu,
+ *     ' - segmentation: ', msg.payload.segmentation,
+ *     ' - vendorId: ', msg.payload.vendorId
+ *   );
+ * });
+ */
+
+'use strict';
+
+const baAsn1      = require('../asn1');
+const baEnum      = require('../enum');
+
+module.exports.encode = (buffer, deviceId, maxApdu, segmentation, vendorId) => {
+  baAsn1.encodeApplicationObjectId(buffer, baEnum.ObjectType.DEVICE, deviceId);
+  baAsn1.encodeApplicationUnsigned(buffer, maxApdu);
+  baAsn1.encodeApplicationEnumerated(buffer, segmentation);
+  baAsn1.encodeApplicationUnsigned(buffer, vendorId);
+};
+
+module.exports.decode = (buffer, offset) => {
+  let result;
+  let apduLen = 0;
+  const orgOffset = offset;
+  result = baAsn1.decodeTagNumberAndValue(buffer, offset + apduLen);
+  apduLen += result.len;
+  if (result.tagNumber !== baEnum.ApplicationTags.OBJECTIDENTIFIER) return;
+  result = baAsn1.decodeObjectId(buffer, offset + apduLen);
+  apduLen += result.len;
+  if (result.objectType !== baEnum.ObjectType.DEVICE) return;
+  const deviceId = result.instance;
+  result = baAsn1.decodeTagNumberAndValue(buffer, offset + apduLen);
+  apduLen += result.len;
+  if (result.tagNumber !== baEnum.ApplicationTags.UNSIGNED_INTEGER) return;
+  result = baAsn1.decodeUnsigned(buffer, offset + apduLen, result.value);
+  apduLen += result.len;
+  const maxApdu = result.value;
+  result = baAsn1.decodeTagNumberAndValue(buffer, offset + apduLen);
+  apduLen += result.len;
+  if (result.tagNumber !== baEnum.ApplicationTags.ENUMERATED) return;
+  result = baAsn1.decodeEnumerated(buffer, offset + apduLen, result.value);
+  apduLen += result.len;
+  if (result.value > baEnum.Segmentation.NO_SEGMENTATION) return;
+  const segmentation = result.value;
+  result = baAsn1.decodeTagNumberAndValue(buffer, offset + apduLen);
+  apduLen += result.len;
+  if (result.tagNumber !== baEnum.ApplicationTags.UNSIGNED_INTEGER) return;
+  result = baAsn1.decodeUnsigned(buffer, offset + apduLen, result.value);
+  apduLen += result.len;
+  if (result.value > 0xFFFF) return;
+  const vendorId = result.value;
+  return {
+    len: offset - orgOffset,
+    deviceId: deviceId,
+    maxApdu: maxApdu,
+    segmentation: segmentation,
+    vendorId: vendorId
+  };
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> on Sun May 17 2020 12:08:02 GMT+0200 (Central European Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

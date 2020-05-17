@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="utf-8">
     <title>Home - Documentation</title>
-
+    
+    
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
@@ -11,6 +13,8 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -21,8 +25,9 @@
 
 <label for="nav-trigger" class="overlay"></label>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="bacstack.html">bacstack</a><ul class='methods'><li data-type='method'><a href="bacstack.html#.close">close</a></li><li data-type='method'><a href="bacstack.html#.deviceCommunicationControl">deviceCommunicationControl</a></li><li data-type='method'><a href="bacstack.html#.readProperty">readProperty</a></li><li data-type='method'><a href="bacstack.html#.readPropertyMultiple">readPropertyMultiple</a></li><li data-type='method'><a href="bacstack.html#.reinitializeDevice">reinitializeDevice</a></li><li data-type='method'><a href="bacstack.html#.timeSync">timeSync</a></li><li data-type='method'><a href="bacstack.html#.whoIs">whoIs</a></li><li data-type='method'><a href="bacstack.html#.writeProperty">writeProperty</a></li><li data-type='method'><a href="bacstack.html#.writePropertyMultiple">writePropertyMultiple</a></li></ul></li></ul><h3>Events</h3><ul><li><a href="bacstack.html#.event:error">error</a></li><li><a href="bacstack.html#.event:iAm">iAm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#BacnetApplicationTags">BacnetApplicationTags</a></li><li><a href="global.html#BacnetEnableDisable">BacnetEnableDisable</a></li><li><a href="global.html#BacnetReinitializedStates">BacnetReinitializedStates</a></li></ul>
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="bacstack.html">bacstack</a><ul class='methods'><li data-type='method'><a href="bacstack.html#.close">close</a></li><li data-type='method'><a href="bacstack.html#.confirmedCOVNotification">confirmedCOVNotification</a></li><li data-type='method'><a href="bacstack.html#.deviceCommunicationControl">deviceCommunicationControl</a></li><li data-type='method'><a href="bacstack.html#.iAmResponse">iAmResponse</a></li><li data-type='method'><a href="bacstack.html#.readProperty">readProperty</a></li><li data-type='method'><a href="bacstack.html#.readPropertyMultiple">readPropertyMultiple</a></li><li data-type='method'><a href="bacstack.html#.readPropertyResponse">readPropertyResponse</a></li><li data-type='method'><a href="bacstack.html#.reinitializeDevice">reinitializeDevice</a></li><li data-type='method'><a href="bacstack.html#.resultResponse">resultResponse</a></li><li data-type='method'><a href="bacstack.html#.timeSync">timeSync</a></li><li data-type='method'><a href="bacstack.html#.timeSyncUTC">timeSyncUTC</a></li><li data-type='method'><a href="bacstack.html#.unconfirmedCOVNotification">unconfirmedCOVNotification</a></li><li data-type='method'><a href="bacstack.html#.unconfirmedCOVNotification">unconfirmedCOVNotification</a></li><li data-type='method'><a href="bacstack.html#.whoIs">whoIs</a></li><li data-type='method'><a href="bacstack.html#.writeProperty">writeProperty</a></li><li data-type='method'><a href="bacstack.html#.writePropertyMultiple">writePropertyMultiple</a></li></ul></li></ul><h3>Events</h3><ul><li><a href="bacstack.html#.event:error">error</a></li><li><a href="bacstack.html#.event:iAm">iAm</a></li><li><a href="bacstack.html#.event:timeSync">timeSync</a></li><li><a href="bacstack.html#.event:whoIs">whoIs</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ApplicationTags">ApplicationTags</a></li><li><a href="global.html#EnableDisable">EnableDisable</a></li><li><a href="global.html#getEnumName">getEnumName</a></li><li><a href="global.html#MaxApduLengthAccepted">MaxApduLengthAccepted</a></li><li><a href="global.html#MaxSegmentsAccepted">MaxSegmentsAccepted</a></li><li><a href="global.html#ReinitializedState">ReinitializedState</a></li></ul>
 </nav>
 
 <div id="main">
@@ -35,6 +40,11 @@
     
 
 
+    <section class="package">
+        <h3> </h3>		
+    </section>
+
+
 
 
 
@@ -45,21 +55,18 @@
     
 
 
-    <section class="readme">
-        <article><h1>Node BACstack</h1><p>A BACnet protocol stack written in pure JavaScript. BACnet is a protocol to
+
+    <section class="readme usertext">
+        <article><h1>Node BACstack</h1>
+<p>A BACnet protocol stack written in pure JavaScript. BACnet is a protocol to
 interact with building automation devices defined by ASHRAE.</p>
-<p><a href="http://badge.fury.io/js/bacstack"><img src="https://badge.fury.io/js/bacstack.svg" alt=""></a>
-<a href="https://travis-ci.org/fh1ch/node-bacstack"><img src="https://travis-ci.org/fh1ch/node-bacstack.svg?branch=master" alt=""></a>
-<a href="https://coveralls.io/r/fh1ch/node-bacstack?branch=master"><img src="https://coveralls.io/repos/fh1ch/node-bacstack/badge.svg?branch=master" alt=""></a>
-<a href="https://codeclimate.com/github/fh1ch/node-bacstack"><img src="https://codeclimate.com/github/fh1ch/node-bacstack/badges/gpa.svg" alt=""></a>
-<a href="https://david-dm.org/fh1ch/node-bacstack"><img src="https://david-dm.org/fh1ch/node-bacstack/status.svg" alt=""></a></p>
-<blockquote>
-<p><strong>Note:</strong> This is an early prototype and shall not be considered as stable.
-Use it with caution and at your own risk!</p>
-</blockquote>
-<h2>Usage</h2><p>Add Node BACstack to your project by using:</p>
-<pre class="prettyprint source lang-sh"><code>npm install --save bacstack</code></pre><p>The API documentation is available under <strong><a href="https://fh1ch.github.io/node-bacstack">fh1ch.github.io/node-bacstack</a></strong>.</p>
-<h3>Features</h3><p>The BACNET standard defines a wide variety of services as part of it's
+<h2>Usage</h2>
+<p>Add Node BACstack to your project by using:</p>
+<pre class="prettyprint source lang-sh"><code>npm install --save bacstack
+</code></pre>
+<p>The API documentation is available under <strong><a href="https://fh1ch.github.io/node-bacstack">fh1ch.github.io/node-bacstack</a></strong>.</p>
+<h3>Features</h3>
+<p>The BACNET standard defines a wide variety of services as part of it's
 specification. While Node BACstack tries to be as complete as possible,
 following services are already supported at this point in time:</p>
 <table>
@@ -72,33 +79,43 @@ following services are already supported at this point in time:</p>
 </thead>
 <tbody>
 <tr>
-<td>Who Is / I Am</td>
-<td style="text-align:center">yes</td>
+<td>Who Is</td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.whoIs">yes</a></td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.event:whoIs">yes</a></td>
+</tr>
+<tr>
+<td>I Am</td>
+<td style="text-align:center">yes¹</td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.event:iAm">yes</a></td>
+</tr>
+<tr>
+<td>Who Has</td>
+<td style="text-align:center">yes¹</td>
 <td style="text-align:center">yes¹</td>
 </tr>
 <tr>
-<td>Who Has / I Have</td>
+<td>I Have</td>
 <td style="text-align:center">yes¹</td>
 <td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Time Sync</td>
-<td style="text-align:center">yes</td>
-<td style="text-align:center">yes¹</td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.timeSync">yes</a></td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.event:timeSync">yes</a></td>
 </tr>
 <tr>
 <td>UTC Time Sync</td>
-<td style="text-align:center">yes</td>
-<td style="text-align:center">yes¹</td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.timeSyncUTC">yes</a></td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.event:timeSyncUTC">yes</a></td>
 </tr>
 <tr>
 <td>Read Property</td>
-<td style="text-align:center">yes</td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.readProperty">yes</a></td>
 <td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Read Property Multiple</td>
-<td style="text-align:center">yes</td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.readPropertyMultiple">yes</a></td>
 <td style="text-align:center">yes¹</td>
 </tr>
 <tr>
@@ -108,23 +125,23 @@ following services are already supported at this point in time:</p>
 </tr>
 <tr>
 <td>Write Property</td>
-<td style="text-align:center">yes</td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.writeProperty">yes</a></td>
 <td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Write Property Multiple</td>
-<td style="text-align:center">yes</td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.writePropertyMultiple">yes</a></td>
 <td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Add List Element</td>
 <td style="text-align:center">yes¹</td>
-<td style="text-align:center"></td>
+<td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Remove List Element</td>
 <td style="text-align:center">yes¹</td>
-<td style="text-align:center"></td>
+<td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Create Object</td>
@@ -138,6 +155,11 @@ following services are already supported at this point in time:</p>
 </tr>
 <tr>
 <td>Subscribe COV</td>
+<td style="text-align:center">yes¹</td>
+<td style="text-align:center">yes¹</td>
+</tr>
+<tr>
+<td>Confirmed COV Notification</td>
 <td style="text-align:center">yes¹</td>
 <td style="text-align:center">yes¹</td>
 </tr>
@@ -158,103 +180,104 @@ following services are already supported at this point in time:</p>
 </tr>
 <tr>
 <td>Reinitialize Device</td>
-<td style="text-align:center">yes</td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.reinitializeDevice">yes</a></td>
 <td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Device Communication Control</td>
-<td style="text-align:center">yes</td>
+<td style="text-align:center"><a href="https://fh1ch.github.io/node-bacstack/bacstack.html#.deviceCommunicationControl">yes</a></td>
 <td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Get Alarm Summary</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
+<td style="text-align:center">yes¹</td>
+<td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Get Event Information</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
+<td style="text-align:center">yes¹</td>
+<td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Get Enrollment Summary</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
+<td style="text-align:center">yes¹</td>
+<td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Acknowledge Alarm</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
+<td style="text-align:center">yes¹</td>
+<td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Confirmed Event Notification</td>
-<td style="text-align:center"></td>
+<td style="text-align:center">yes¹</td>
 <td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Unconfirmed Event Notification</td>
-<td style="text-align:center"></td>
+<td style="text-align:center">yes¹</td>
 <td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Unconfirmed Private Transfer</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
+<td style="text-align:center">yes¹</td>
+<td style="text-align:center">yes¹</td>
 </tr>
 <tr>
 <td>Confirmed Private Transfer</td>
-<td style="text-align:center"></td>
+<td style="text-align:center">yes¹</td>
+<td style="text-align:center">yes¹</td>
+</tr>
+<tr>
+<td>Register Foreign Device</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">yes¹</td>
+</tr>
+<tr>
+<td>Distribute Broadcast to Network</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">yes¹</td>
 </tr>
 </tbody>
 </table>
 <p>¹ Support implemented as Beta (untested, undocumented, breaking interface)</p>
-<h3>Example</h3><pre class="prettyprint source lang-js"><code>var bacnet = require('bacstack');
+<h3>Example</h3>
+<pre class="prettyprint source lang-js"><code>const bacnet = require('bacstack');
 
 // Initialize BACStack
-var client = new bacnet({adpuTimeout: 6000});
+const client = new bacnet({apduTimeout: 6000});
 
 // Discover Devices
-client.on('iAm', function(device) {
+client.on('iAm', (device) => {
   console.log('address: ', device.address);
   console.log('deviceId: ', device.deviceId);
-  console.log('maxAdpu: ', device.maxAdpu);
+  console.log('maxApdu: ', device.maxApdu);
   console.log('segmentation: ', device.segmentation);
   console.log('vendorId: ', device.vendorId);
 });
 client.whoIs();
 
 // Read Device Object
-var requestArray = [{
-  objectIdentifier: {type: 8, instance: 4194303},
-  propertyReferences: [{propertyIdentifier: 8}]
+const requestArray = [{
+  objectId: {type: 8, instance: 4194303},
+  properties: [{id: 8}]
 }];
-client.readPropertyMultiple('192.168.1.43', requestArray, function(err, value) {
+client.readPropertyMultiple('192.168.1.43', requestArray, (err, value) => {
   console.log('value: ', value);
-});</code></pre><h2>Contributing</h2><p>Implementing and maintaining a protocol stack is a lot of work, therefore any
+});
+</code></pre>
+<h2>Contributing</h2>
+<p>Implementing and maintaining a protocol stack is a lot of work, therefore any
 help is appreciated, from creating issues, to contributing documentation, fixing
 issues and adding new features.</p>
-<p>Please follow the best-practice contribution guidelines as mentioned below when
-submitting any changes.</p>
-<h3>Code Style</h3><p>This module uses the <a href="https://google.github.io/styleguide/javascriptguide.xml">Google JavaScript Code-Style</a>
-and enforces it using <a href="http://jscs.info/">JSCS</a> as additional linter beneath
-<a href="http://jshint.com/">JSHint</a>. You can test if your changes comply with the code
-style by executing:</p>
-<pre class="prettyprint source lang-sh"><code>npm run lint</code></pre><h3>Testing and Coverage</h3><p>Testing is done using <a href="https://mochajs.org/">Mocha</a> and is separated into two
-sets, <code>unit</code> and <code>integration</code>. While unit tries to test on function level,
-including synthetic decoding and encoding, the integration tests are using real
-recorded data and are only mocking the transport layer.</p>
-<p>For both sets, the test-coverage is calculated using <a href="https://istanbul.js.org/">Istanbul</a>.
-Running the tests and calculating the coverage can be done locally by executing:</p>
-<pre class="prettyprint source lang-sh"><code>npm run test
-npm run integration</code></pre><p>It is expected that new features or fixes do not negatively impact the test
-results or the coverage.</p>
-<h3>Documentation</h3><p>The API documentation is generated using <a href="http://usejsdoc.org/">JSDoc</a> and
-relies on in-line JSDoc3 syntax. The documentation can also be built locally by
-executing:</p>
-<pre class="prettyprint source lang-sh"><code>npm run docs</code></pre><p>It is expected that new features or changes are reflected in the documentation
-as well.</p>
-<h2>License</h2><p><a href="http://opensource.org/licenses/MIT">The MIT License</a></p>
-<p>Copyright (c) 2017 Fabio Huser <a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#x66;&#97;&#98;&#105;&#111;&#64;&#102;&#x68;&#49;&#x2e;&#99;&#x68;">&#x66;&#97;&#98;&#105;&#111;&#64;&#102;&#x68;&#49;&#x2e;&#99;&#x68;</a></p></article>
+<p>Please follow the <a href="CONTRIBUTING.md">Contribution Guide</a> when submitting any
+changes.</p>
+<h2>License</h2>
+<p><a href="http://opensource.org/licenses/MIT">The MIT License</a></p>
+<p>Copyright (c) 2017-2019 Fabio Huser <a href="mailto:fabio@fh1.ch">fabio@fh1.ch</a></p>
+<p><strong>Note:</strong> This is not an official product of the BACnet Advocacy Group. BACnet®
+is a registered trademark of American Society of Heating, Refrigerating and
+Air-Conditioning Engineers (ASHRAE).</p></article>
     </section>
 
 
@@ -262,15 +285,21 @@ as well.</p>
 
 
 
+    
+    
 </div>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Dec 07 2017 05:58:03 GMT+0000 (UTC) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> on Sun May 17 2020 12:08:02 GMT+0200 (Central European Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
 <script src="scripts/linenumber.js"></script>
+
+
+
 </body>
 </html>

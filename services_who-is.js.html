@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>services/who-is.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="bacstack.html">bacstack</a><ul class='methods'><li data-type='method'><a href="bacstack.html#.close">close</a></li><li data-type='method'><a href="bacstack.html#.confirmedCOVNotification">confirmedCOVNotification</a></li><li data-type='method'><a href="bacstack.html#.deviceCommunicationControl">deviceCommunicationControl</a></li><li data-type='method'><a href="bacstack.html#.iAmResponse">iAmResponse</a></li><li data-type='method'><a href="bacstack.html#.readProperty">readProperty</a></li><li data-type='method'><a href="bacstack.html#.readPropertyMultiple">readPropertyMultiple</a></li><li data-type='method'><a href="bacstack.html#.readPropertyResponse">readPropertyResponse</a></li><li data-type='method'><a href="bacstack.html#.reinitializeDevice">reinitializeDevice</a></li><li data-type='method'><a href="bacstack.html#.resultResponse">resultResponse</a></li><li data-type='method'><a href="bacstack.html#.timeSync">timeSync</a></li><li data-type='method'><a href="bacstack.html#.timeSyncUTC">timeSyncUTC</a></li><li data-type='method'><a href="bacstack.html#.unconfirmedCOVNotification">unconfirmedCOVNotification</a></li><li data-type='method'><a href="bacstack.html#.unconfirmedCOVNotification">unconfirmedCOVNotification</a></li><li data-type='method'><a href="bacstack.html#.whoIs">whoIs</a></li><li data-type='method'><a href="bacstack.html#.writeProperty">writeProperty</a></li><li data-type='method'><a href="bacstack.html#.writePropertyMultiple">writePropertyMultiple</a></li></ul></li></ul><h3>Events</h3><ul><li><a href="bacstack.html#.event:error">error</a></li><li><a href="bacstack.html#.event:iAm">iAm</a></li><li><a href="bacstack.html#.event:timeSync">timeSync</a></li><li><a href="bacstack.html#.event:whoIs">whoIs</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ApplicationTags">ApplicationTags</a></li><li><a href="global.html#EnableDisable">EnableDisable</a></li><li><a href="global.html#getEnumName">getEnumName</a></li><li><a href="global.html#MaxApduLengthAccepted">MaxApduLengthAccepted</a></li><li><a href="global.html#MaxSegmentsAccepted">MaxSegmentsAccepted</a></li><li><a href="global.html#ReinitializedState">ReinitializedState</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">services/who-is.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * The whoIs event represents the request for an IAm reponse to detect all
+ * devices in a BACNET network.
+ *
+ * @event bacstack.whoIs
+ * @param {number=} lowLimit - The lowest BACnet ID being queried.
+ * @param {number=} highLimit - The highest BACnet ID being queried.
+ *
+ * @example
+ * const bacnet = require('bacstack');
+ * const client = new bacnet();
+ *
+ * client.on('whoIs', (msg) => {
+ *   console.log(
+ *     'address: ', msg.header.address,
+ *     ' - lowLimit: ', msg.payload.lowLimit,
+ *     ' - highLimit: ', msg.payload.highLimit
+ *   );
+ * });
+ */
+
+'use strict';
+
+const baAsn1      = require('../asn1');
+const baEnum      = require('../enum');
+
+module.exports.encode = (buffer, lowLimit, highLimit) => {
+  if ((lowLimit >= 0) &amp;&amp; (lowLimit &lt;= baEnum.ASN1_MAX_INSTANCE) &amp;&amp; (highLimit >= 0) &amp;&amp; (highLimit &lt;= baEnum.ASN1_MAX_INSTANCE)) {
+    baAsn1.encodeContextUnsigned(buffer, 0, lowLimit);
+    baAsn1.encodeContextUnsigned(buffer, 1, highLimit);
+  }
+};
+
+module.exports.decode = (buffer, offset, apduLen) => {
+  let len = 0;
+  let value = {};
+  if (apduLen &lt;= 0) return {};
+  let result = baAsn1.decodeTagNumberAndValue(buffer, offset + len);
+  len += result.len;
+  if (result.tagNumber !== 0) return;
+  if (apduLen &lt;= len) return;
+  let decodedValue = baAsn1.decodeUnsigned(buffer, offset + len, result.value);
+  len += decodedValue.len;
+  if (decodedValue.value &lt;= baEnum.ASN1_MAX_INSTANCE) {
+    value.lowLimit = decodedValue.value;
+  }
+  if (apduLen &lt;= len) return;
+  result = baAsn1.decodeTagNumberAndValue(buffer, offset + len);
+  len += result.len;
+  if (result.tagNumber !== 1) return;
+  if (apduLen &lt;= len) return;
+  decodedValue = baAsn1.decodeUnsigned(buffer, offset + len, result.value);
+  len += decodedValue.len;
+  if (decodedValue.value &lt;= baEnum.ASN1_MAX_INSTANCE) {
+    value.highLimit = decodedValue.value;
+  }
+  value.len = len;
+  return value;
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> on Sun May 17 2020 12:08:02 GMT+0200 (Central European Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
