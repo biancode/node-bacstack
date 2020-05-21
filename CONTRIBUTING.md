@@ -9,7 +9,7 @@ submitting any changes.
 
 ### Git
 
-Please, do you changes with teh develop branch and send your pull request to develop, too!
+Please, do your changes with the develop branch and send your pull request to develop, too!
 
 ### Start
 
